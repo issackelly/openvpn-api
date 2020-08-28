@@ -194,5 +194,14 @@ class VPN:
         return openvpn_status.parse_status(raw)
     
 
-    def client_kill(self, client: Client) -> None:
-        raw = self.send_command("client-kill %s" % client.client_id)
+    def client_kill(self, client_id):
+        raw = self.send_command("client-kill %s" % client_id)
+        return raw
+
+    def client_kill_by_ip_port(self, ip, port):
+        status = self.send_command("status 2")
+        for l in status.split("\n")
+            if l.startswith("CLIENT_LIST"):
+                split = l.split(",")
+                if split[2] == f"{ip}:{port}":
+                    return self.client_kill(split[10])
