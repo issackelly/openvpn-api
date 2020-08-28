@@ -200,7 +200,7 @@ class VPN:
 
     def client_kill_by_ip_port(self, ip, port):
         status = self.send_command("status 2")
-        for l in status.split("\n")
+        for l in status.split("\n"):
             if l.startswith("CLIENT_LIST"):
                 split = l.split(",")
                 if split[2] == f"{ip}:{port}":
