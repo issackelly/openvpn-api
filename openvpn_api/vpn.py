@@ -198,10 +198,10 @@ class VPN:
         raw = self.send_command("client-kill %s" % client_id)
         return raw
 
-    def client_kill_by_ip_port(self, ip, port):
+    def client_kill_by_ip_port(self, ip_port):
         status = self.send_command("status 2")
         for l in status.split("\n"):
             if l.startswith("CLIENT_LIST"):
                 split = l.split(",")
-                if split[2] == f"{ip}:{port}":
+                if split[2] == ip_port:
                     return self.client_kill(split[10])
